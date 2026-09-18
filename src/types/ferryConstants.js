@@ -1,0 +1,207 @@
+// Toronto Island Ferry Service - Core Domain Constants & Operational Configurations
+
+export const TICKET_TYPES = {
+  ADULT: { id: 'adult', label: 'Adult (20-64)', price: 9.11, color: '#38bdf8' },
+  SENIOR: { id: 'senior', label: 'Senior (65+)', price: 5.86, color: '#a78bfa' },
+  YOUTH: { id: 'youth', label: 'Youth (15-19)', price: 5.86, color: '#34d399' },
+  CHILD: { id: 'child', label: 'Child (2-14)', price: 4.29, color: '#fbbf24' },
+  INFANT: { id: 'infant', label: 'Infant (Under 2)', price: 0.00, color: '#94a3b8' },
+  COMMUTER: { id: 'commuter', label: 'Resident Pass', price: 0.00, color: '#f43f5e' },
+};
+
+export const CHANNELS = {
+  ONLINE: { id: 'online', label: 'Web Portal', icon: 'Globe' },
+  APP: { id: 'app', label: 'Toronto Mobile App', icon: 'Smartphone' },
+  KIOSK: { id: 'kiosk', label: 'Terminal Kiosk', icon: 'Monitor' },
+  BOOTH: { id: 'booth', label: 'Cashier Booth', icon: 'CreditCard' },
+};
+
+export const ROUTES = {
+  CENTRE: {
+    id: 'centre',
+    name: 'Centre Island',
+    subtitle: 'Recreation & Amusement Park',
+    distanceKm: 2.1,
+    travelTimeMin: 14,
+    color: '#0284c7',
+    dockCapacity: 4500,
+    islandSafeCapacity: 15000,
+    endCoords: { x: 480, y: 340 },
+    icon: 'Palmtree',
+    yearRound: false, // seasonal peak, limited/diverted winter
+  },
+  HANLAN: {
+    id: 'hanlan',
+    name: "Hanlan's Point",
+    subtitle: 'Beaches & Billy Bishop Proximity',
+    distanceKm: 2.4,
+    travelTimeMin: 15,
+    color: '#059669',
+    dockCapacity: 2500,
+    islandSafeCapacity: 6000,
+    endCoords: { x: 220, y: 290 },
+    icon: 'Sun',
+    yearRound: false,
+  },
+  WARD: {
+    id: 'ward',
+    name: "Ward's Island",
+    subtitle: 'Year-Round Residential & Nature',
+    distanceKm: 2.3,
+    travelTimeMin: 15,
+    color: '#8b5cf6',
+    dockCapacity: 2000,
+    islandSafeCapacity: 4000,
+    endCoords: { x: 740, y: 320 },
+    icon: 'Home',
+    yearRound: true, // Primary year-round lifeline for ~700 residents
+  },
+};
+
+export const MAINLAND_TERMINAL = {
+  id: 'jack_layton',
+  name: 'Jack Layton Ferry Terminal',
+  coords: { x: 460, y: 45 },
+  holdingPenMaxCapacity: 3500,
+  emergencyThreshold: 2800,
+};
+
+export const INITIAL_FLEET = [
+  {
+    id: 'sam_mcbride',
+    name: 'MV Sam McBride',
+    capacity: 915,
+    yearBuilt: 1939,
+    type: 'Double-Decker Passenger',
+    route: 'centre',
+    status: 'EN ROUTE',
+    progress: 0.65, // 0 to 1
+    direction: 'island', // 'island' or 'mainland'
+    speedKnots: 10.2,
+    passengersOnboard: 684,
+    maxSpeed: 12,
+    crewOnDuty: 6,
+    isStandby: false,
+  },
+  {
+    id: 'thomas_rennie',
+    name: 'MV Thomas Rennie',
+    capacity: 915,
+    yearBuilt: 1951,
+    type: 'Double-Decker Passenger',
+    route: 'centre',
+    status: 'BOARDING',
+    progress: 0.05,
+    direction: 'island',
+    speedKnots: 0.0,
+    passengersOnboard: 810,
+    maxSpeed: 12,
+    crewOnDuty: 6,
+    isStandby: false,
+  },
+  {
+    id: 'william_inglis',
+    name: 'MV William Inglis',
+    capacity: 700,
+    yearBuilt: 1935,
+    type: 'Classic Double-Decker',
+    route: 'hanlan',
+    status: 'EN ROUTE',
+    progress: 0.42,
+    direction: 'mainland',
+    speedKnots: 9.6,
+    passengersOnboard: 412,
+    maxSpeed: 11,
+    crewOnDuty: 5,
+    isStandby: false,
+  },
+  {
+    id: 'ongiara',
+    name: 'MV Ongiara',
+    capacity: 220,
+    vehicles: 10,
+    yearBuilt: 1963,
+    type: 'Vehicle & Passenger / Icebreaker',
+    route: 'ward',
+    status: 'EN ROUTE',
+    progress: 0.88,
+    direction: 'island',
+    speedKnots: 8.8,
+    passengersOnboard: 165,
+    vehiclesOnboard: 6,
+    maxSpeed: 10,
+    crewOnDuty: 4,
+    isStandby: false,
+    yearRoundCritical: true,
+  },
+  {
+    id: 'trillium',
+    name: 'Trillium',
+    capacity: 800,
+    yearBuilt: 1910,
+    type: 'Historic Sidewheel Paddle Steamer',
+    route: 'centre',
+    status: 'STANDBY',
+    progress: 0.0,
+    direction: 'island',
+    speedKnots: 0.0,
+    passengersOnboard: 0,
+    maxSpeed: 9,
+    crewOnDuty: 0,
+    isStandby: true, // Can be deployed during surge
+  },
+];
+
+export const INITIAL_GATES = [
+  { id: 1, name: 'Gate 1', route: 'centre', mode: 'EXPRESS QR', status: 'active', scansPerMin: 28, errorRate: 0.01, queueLength: 42 },
+  { id: 2, name: 'Gate 2', route: 'centre', mode: 'STANDARD', status: 'active', scansPerMin: 22, errorRate: 0.02, queueLength: 68 },
+  { id: 3, name: 'Gate 3', route: 'centre', mode: 'STANDARD', status: 'active', scansPerMin: 24, errorRate: 0.01, queueLength: 64 },
+  { id: 4, name: 'Gate 4', route: 'hanlan', mode: 'EXPRESS QR', status: 'active', scansPerMin: 18, errorRate: 0.01, queueLength: 35 },
+  { id: 5, name: 'Gate 5', route: 'hanlan', mode: 'STANDARD', status: 'active', scansPerMin: 15, errorRate: 0.02, queueLength: 38 },
+  { id: 6, name: 'Gate 6', route: 'ward', mode: 'RESIDENT/PRIORITY', status: 'active', scansPerMin: 12, errorRate: 0.00, queueLength: 14 },
+  { id: 7, name: 'Gate 7', route: 'ward', mode: 'STANDARD', status: 'active', scansPerMin: 14, errorRate: 0.01, queueLength: 20 },
+  { id: 8, name: 'Gate 8', route: 'all', mode: 'ACCESSIBILITY & BIKES', status: 'active', scansPerMin: 9, errorRate: 0.03, queueLength: 25 },
+];
+
+export const OPERATIONAL_SCENARIOS = {
+  NORMAL: {
+    id: 'normal',
+    name: 'Normal Summer Afternoon',
+    salesMultiplier: 1.0,
+    redemptionMultiplier: 1.0,
+    routeWeights: { centre: 0.60, hanlan: 0.25, ward: 0.15 },
+    weather: { condition: 'Sunny & Clear', temp: '24°C', wind: '12 km/h SW', lakeTemp: '19°C', waterCondition: 'Calm' },
+    safetyStatus: 'NORMAL',
+    description: 'Typical summer operating demand. Steady flow across all island docks.',
+  },
+  SATURDAY_PEAK: {
+    id: 'saturday_peak',
+    name: 'Saturday Peak Rush (Family & Beach Surge)',
+    salesMultiplier: 2.8,
+    redemptionMultiplier: 2.5,
+    routeWeights: { centre: 0.72, hanlan: 0.20, ward: 0.08 },
+    weather: { condition: 'Hot & Clear', temp: '29°C', wind: '8 km/h S', lakeTemp: '21°C', waterCondition: 'Glassy' },
+    safetyStatus: 'HEAVY QUEUES',
+    description: 'Intense family crowds to Centreville & Hanlan’s beachgoers. Jack Layton holding pen nearing capacity.',
+  },
+  STORM_EVACUATION: {
+    id: 'storm_evacuation',
+    name: 'Severe Thunderstorm Warning (Island Evacuation)',
+    salesMultiplier: 0.1,
+    redemptionMultiplier: 3.5, // High return volume!
+    routeWeights: { centre: 0.65, hanlan: 0.25, ward: 0.10 },
+    weather: { condition: 'Squall & Thunderstorms', temp: '18°C', wind: '48 km/h gusts NE', lakeTemp: '17°C', waterCondition: 'Rough Choppy 1.2m' },
+    safetyStatus: 'PUBLIC SAFETY PRIORITY',
+    description: 'Rapid weather deterioration. Mainland sales restricted; massive return boarding at island docks.',
+  },
+  WINTER_COMMUTE: {
+    id: 'winter_commute',
+    name: 'Winter Ice Operations (Year-Round Transit)',
+    salesMultiplier: 0.25,
+    redemptionMultiplier: 0.25,
+    routeWeights: { centre: 0.05, hanlan: 0.05, ward: 0.90 },
+    weather: { condition: 'Freezing & Light Snow', temp: '-6°C', wind: '22 km/h NW', lakeTemp: '2°C', waterCondition: 'Slush / Harbour Ice 5cm' },
+    safetyStatus: 'ICE PROTOCOL ACTIVE',
+    description: 'Centre and Hanlan docks hibernating or on-demand; MV Ongiara provides vital icebreaker lifeline to Ward’s residents.',
+  },
+};
